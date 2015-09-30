@@ -62,7 +62,7 @@ print "\n {$g}Fetching most recent config file!{$cc} \n";
 $curl = curl_init();
 curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => 'https://test.com/config.json',
+    CURLOPT_URL => 'https://raw.githubusercontent.com/Pr0x13/iBrutr/master/config.json',
     CURLOPT_USERAGENT => 'iBrutr/Updater'));
 $getconfig = curl_exec($curl);
 file_put_contents('./files/config.json', $getconfig);
