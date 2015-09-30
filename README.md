@@ -22,6 +22,7 @@ CLI
 
 Dependencies:
 php5-cli
+php5-curl
 
 Usage:
 php iBrutr -u example@icloud.com
