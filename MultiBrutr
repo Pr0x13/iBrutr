@@ -301,7 +301,7 @@ $buffer = array_shift($buffer);
 else:
 //USE THIS IF YOU ONLY KNOW INCORRECT LOGIN INFO,REMOVE BUFFER CHECK FUNCTION,DISABLES RATE LIMIT SENSING!! 
 if (strpos($missiles[$x]->data, "bad login string") == true){  
-        print "{$r}->{$cc}"; 
+        print "{$r}=>{$cc}"; 
 }else{
         die( "\n\n{$r}  Success!{$cc} The password is: {$g}{$pass}{$cc}\n\n" );
 	exit(1);
