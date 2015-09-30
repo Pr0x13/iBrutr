@@ -9,10 +9,15 @@ This version is (hopefully) more robust-
 
 Features:
 Word-Mangling thanks to JTR
+
 True Bruteforce (if you have a few years to wait)
+
 Automatic Rate Limiter Sensing Feature (Hopefully won’t DDoS apple servers this time) =]
-Ability to Bruteforce Apple Web Objects Server Backends
+
+Ability to Bruteforce Apple Web Objects Server 
+
 Multi-Curl - huge timing performance boost 
+
 CLI
 
 
