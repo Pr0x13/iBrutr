@@ -1,0 +1,33 @@
+<?php
+$opts = getopt("c:m");
+foreach (array_keys($opts) as $opt) switch ($opt) { 
+ case 'c':
+   $count = $opts['c'];
+ break;
+ case 'm':
+   $mangle = $opts['m'];
+ break;
+}
+if (isset($mangle)){
+    fwrite(STDOUT, '$mangle'."\n");
+}else{
+    fwrite(STDOUT, '$nothing'."\n");
+}
+for($i = 0; $i <= $count;$i++){
+$dicts = file_get_contents("{$i}.dic");
+$file = explode("\n", $dicts);
+$length = count($file);
+$chunks = array_chunk($file, 100);
+foreach ($chunks as $chunk) {
+   foreach ($chunk as $word) {
+if (isset($mangle)){
+  if (strlen($word) >= 7)
+         fwrite(STDOUT, $word."\n");
+}else{
+  if (strlen($word) >= 8)
+         fwrite(STDOUT, $word."\n");
+}
+    }
+  }
+}
+?>

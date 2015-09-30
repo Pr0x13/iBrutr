@@ -1,0 +1,171 @@
+<?php
+ 
+
+
+
+$DATA = array(
+                
+        
+        'APPLE ID' => array(
+        
+        array(
+              'server' => 'https://setup.icloud.com', 
+              'port' => 443,
+              'method' => 'Post',
+              'tech' => 'Auth',               
+              'payloadaddr' => '/setup/get_account_settings',
+              'useragent' => 'Settings/1.0 CFNetwork/672.0.8 Darwin/14.0.0',               
+              'payload' => '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>protocolVersion</key>
+	<string>1.0</string>
+	<key>userInfo</key>
+	<dict>
+		<key>language</key>
+		<string>en</string>
+		<key>timezone</key>
+		<string>America/Chicago</string>
+	</dict>
+</dict>
+</plist>',
+
+              'headers' => array(
+    'Proxy-Connection: keep-alive',
+    'Accept: */*',
+    'Accept-Encoding: gzip, deflate',               
+    'Content-Type: application/xml',
+    'Accept-Language: en-us',
+    'X-MMe-Country: US',
+    'X-MMe-Client-Info: <iPhone4,1> <iPhone OS;7.0.4;11B554a> <com.apple.AppleAccount/1.0 (com.apple.Preferences/1.0)',
+    'Content-length: ',
+    'Connection: keep-alive'),
+              'options' => array (
+
+       CURLOPT_PORT => '$port',  
+       CURLOPT_POST => true,
+       CURLOPT_USERPWD => '$username.":".$pass',
+       CURLOPT_ENCODING => "",
+       CURLOPT_SSL_VERIFYPEER => false,
+       CURLOPT_SSL_VERIFYHOST => false,
+       CURLOPT_POSTFIELDS => '$payload',
+       CURLOPT_USERAGENT => '$useragent',
+       CURLOPT_HTTPHEADER => '$headers'), 
+       
+     
+     ),              
+          
+          
+          array(
+              'server' => 'https://setup.icloud.com', 
+              'port' => 443,
+              'method' => 'Get',
+              'tech' => 'Auth',               
+              'payloadaddr' => '/setup/fmipauthenticate/$APPLE_ID$',
+              'useragent' => 'Settings/1.0 CFNetwork/672.1.14 Darwin/14.0.0',               
+              'payload' => '',
+
+              'headers' => array(
+    'Proxy-Connection: keep-alive',
+    'Accept: */*',
+    'Accept-Encoding: gzip, deflate',               
+    'Content-Type: application/xml',
+    'Accept-Language: en-us',
+    'X-MMe-Country: US',
+    'X-MMe-Client-Info: <iPhone3,2> <iPhone OS;7.1.1;11D201> <com.apple.AppleAccount/1.0 (com.apple.Preferences/1.0)>'),
+           'options' => array (
+   
+       CURLOPT_PORT => '$port',
+       CURLOPT_USERPWD => '$username.":".$pass',
+       CURLOPT_ENCODING => "",
+       CURLOPT_SSL_VERIFYPEER => false,
+       CURLOPT_SSL_VERIFYHOST => false,
+       CURLOPT_USERAGENT => '$useragent',
+       CURLOPT_HTTPHEADER => '$headers'),       
+       
+              ),              
+              
+), //end apple id
+    
+
+
+
+
+
+
+
+
+
+    'APPLE WEB OBJECTS' => array(
+        
+    
+    array(
+    'server' => '', 
+    'port' => 80, 
+    'method' => 'Post',
+    'tech' => 'URLencode',    
+    'payloadaddr' => 'scripts/WebObjects/*.woa/wa/DirectAction/logIn', 
+    'useragent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.5) Gecko/20060731 Firefox/1.5.0.5 Flock/0.7.4.1', 
+    'payload' => 'userName=$username&password=$pass&loginSubmit=Log+In', 
+    'headers' => array(
+    'Host: $server',
+    'User-Agent: $useragent',
+    'Accept: */*',
+    'Accept-Language: en-us',
+    'Accept-Encoding: gzip, deflate',
+    'Referer: http://$server:$port/',
+    'Connection: keep-alive',           
+    'Content-Type: application/x-www-form-urlencoded',
+    'Content-length: '),
+    'options' => array (
+   
+       CURLOPT_POST => true,
+       CURLOPT_PORT => '$port',
+       CURLOPT_ENCODING => "",
+       CURLOPT_SSL_VERIFYPEER => false,
+       CURLOPT_SSL_VERIFYHOST => false,
+       CURLOPT_POSTFIELDS => '$payload',
+       CURLOPT_USERAGENT => '$useragent',
+       CURLOPT_HTTPHEADER => '$headers'),    
+    
+    ),
+    
+    array(
+    'server' => '',
+    'port' => 80,
+    'method' => 'Post',
+    'tech' => 'URLencode',     
+    'payloadaddr' => 'scripts/WebObjects/*.woa/wa/DirectAction/logIn', 
+    'useragent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.5) Gecko/20060731 Firefox/1.5.0.5 Flock/0.7.4.1', 
+    'payload' => 'userName=$username&password=$pass&loginSubmit=Log+In', 
+    'headers' => array(
+    'Host: $server',
+    'User-Agent: $useragent',
+    'Accept: */*',
+    'Accept-Language: en-us',
+    'Accept-Encoding: gzip, deflate',
+    'Referer: http://$server:$port/',
+    'Connection: keep-alive',           
+    'Content-Type: application/x-www-form-urlencoded',
+    'Content-length: '),
+    'options' => array (
+   
+       CURLOPT_POST => true,
+       CURLOPT_PORT => '$port',
+       CURLOPT_ENCODING => "",
+       CURLOPT_SSL_VERIFYPEER => false,
+       CURLOPT_SSL_VERIFYHOST => false,
+       CURLOPT_POSTFIELDS => '$payload',
+       CURLOPT_USERAGENT => '$useragent',
+       CURLOPT_HTTPHEADER => '$headers'),    
+               
+  ),
+    
+
+),//end apple web objects
+);//end everything 
+
+file_put_contents('../files/config.json', json_encode ( $DATA, JSON_PRETTY_PRINT ));
+print "file saved!\n";
+?>

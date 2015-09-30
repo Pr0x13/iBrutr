@@ -1,0 +1,124 @@
+{
+    "APPLE ID": [
+        {
+            "server": "https:\/\/setup.icloud.com",
+            "port": 443,
+            "method": "Post",
+            "tech": "Auth",
+            "payloadaddr": "\/setup\/get_account_settings",
+            "useragent": "Settings\/1.0 CFNetwork\/672.0.8 Darwin\/14.0.0",
+            "payload": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-\/\/Apple\/\/DTD PLIST 1.0\/\/EN\" \"http:\/\/www.apple.com\/DTDs\/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>protocolVersion<\/key>\n\t<string>1.0<\/string>\n\t<key>userInfo<\/key>\n\t<dict>\n\t\t<key>language<\/key>\n\t\t<string>en<\/string>\n\t\t<key>timezone<\/key>\n\t\t<string>America\/Chicago<\/string>\n\t<\/dict>\n<\/dict>\n<\/plist>",
+            "headers": [
+                "Proxy-Connection: keep-alive",
+                "Accept: *\/*",
+                "Accept-Encoding: gzip, deflate",
+                "Content-Type: application\/xml",
+                "Accept-Language: en-us",
+                "X-MMe-Country: US",
+                "X-MMe-Client-Info: <iPhone4,1> <iPhone OS;7.0.4;11B554a> <com.apple.AppleAccount\/1.0 (com.apple.Preferences\/1.0)",
+                "Content-length: ",
+                "Connection: keep-alive"
+            ],
+            "options": {
+                "3": "$port",
+                "47": true,
+                "10005": "$username.\":\".$pass",
+                "10102": "",
+                "64": false,
+                "81": false,
+                "10015": "$payload",
+                "10018": "$useragent",
+                "10023": "$headers"
+            }
+        },
+        {
+            "server": "https:\/\/setup.icloud.com",
+            "port": 443,
+            "method": "Get",
+            "tech": "Auth",
+            "payloadaddr": "\/setup\/fmipauthenticate\/$APPLE_ID$",
+            "useragent": "Settings\/1.0 CFNetwork\/672.1.14 Darwin\/14.0.0",
+            "payload": "",
+            "headers": [
+                "Proxy-Connection: keep-alive",
+                "Accept: *\/*",
+                "Accept-Encoding: gzip, deflate",
+                "Content-Type: application\/xml",
+                "Accept-Language: en-us",
+                "X-MMe-Country: US",
+                "X-MMe-Client-Info: <iPhone3,2> <iPhone OS;7.1.1;11D201> <com.apple.AppleAccount\/1.0 (com.apple.Preferences\/1.0)>"
+            ],
+            "options": {
+                "3": "$port",
+                "10005": "$username.\":\".$pass",
+                "10102": "",
+                "64": false,
+                "81": false,
+                "10018": "$useragent",
+                "10023": "$headers"
+            }
+        }
+    ],
+    "APPLE WEB OBJECTS": [
+        {
+            "server": "",
+            "port": 80,
+            "method": "Post",
+            "tech": "URLencode",
+            "payloadaddr": "scripts\/WebObjects\/*.woa\/wa\/DirectAction\/logIn",
+            "useragent": "Mozilla\/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.5) Gecko\/20060731 Firefox\/1.5.0.5 Flock\/0.7.4.1",
+            "payload": "userName=$username&password=$pass&loginSubmit=Log+In",
+            "headers": [
+                "Host: $server",
+                "User-Agent: $useragent",
+                "Accept: *\/*",
+                "Accept-Language: en-us",
+                "Accept-Encoding: gzip, deflate",
+                "Referer: http:\/\/$server:$port\/",
+                "Connection: keep-alive",
+                "Content-Type: application\/x-www-form-urlencoded",
+                "Content-length: "
+            ],
+            "options": {
+                "47": true,
+                "3": "$port",
+                "10102": "",
+                "64": false,
+                "81": false,
+                "10015": "$payload",
+                "10018": "$useragent",
+                "10023": "$headers"
+            }
+        },
+        {
+            "server": "",
+            "port": 80,
+            "method": "Post",
+            "tech": "URLencode",
+            "payloadaddr": "scripts\/WebObjects\/*.woa\/wa\/DirectAction\/logIn",
+            "useragent": "Mozilla\/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.5) Gecko\/20060731 Firefox\/1.5.0.5 Flock\/0.7.4.1",
+            "payload": "userName=$username&password=$pass&loginSubmit=Log+In",
+            "headers": [
+                "Host: $server",
+                "User-Agent: $useragent",
+                "Accept: *\/*",
+                "Accept-Language: en-us",
+                "Accept-Encoding: gzip, deflate",
+                "Referer: http:\/\/$server:$port\/",
+                "Connection: keep-alive",
+                "Content-Type: application\/x-www-form-urlencoded",
+                "Content-length: "
+            ],
+            "options": {
+                "47": true,
+                "3": "$port",
+                "10102": "",
+                "64": false,
+                "81": false,
+                "10015": "$payload",
+                "10018": "$useragent",
+                "10023": "$headers"
+            }
+        }
+    ]
+}

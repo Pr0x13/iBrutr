@@ -1,0 +1,27 @@
+<?php 
+$argcpipe = trim(fgets(STDIN));
+if ($argcpipe === '$mangle')
+$mangle = $argcpipe;
+while (false !== ($word = fgets(STDIN))) {
+$word = trim($word);
+$char[0] = "?";
+$char[1] = "$";
+$char[2] = "@";
+$char[3] = "!";
+$char[4] = ".";
+$char[5] = "&";
+$random = mt_rand(0,5);
+$randomchar = $char[$random];
+if (isset($mangle)){
+  if (preg_match('/^[a-zA-Z]+$|\\d{5,}|(.)\\1{2}/', $word) == false){//remove 5 or more digits and 3 or more consecutive characters and removes all letter words
+          $word = preg_replace('/\\s/', $randomchar, $word);
+            fwrite(STDOUT, $word."\n");}     
+}else{
+  if (preg_match('/[A-Z]/', $word) == true)://contains capital letter  
+    if (preg_match('/^[a-zA-Z]+$|\\d{5,}|(.)\\1{2}/', $word) == false){//remove 5 or more digits and 3 or more consecutive characters and removes all letter words
+          $word = preg_replace('/\\s/', $randomchar, $word);
+            fwrite(STDOUT, $word."\n");}
+        endif;                                    
+  }
+}
+?>
