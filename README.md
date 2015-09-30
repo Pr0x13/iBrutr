@@ -20,7 +20,7 @@ True Bruteforce (if you have a few years to wait)
 
 Automatic Rate Limiter Sensing Feature (Hopefully won’t DDoS apple servers this time) =]
 
-Ability to Bruteforce Apple Web Objects Server 
+Ability to Bruteforce Apple Web Objects Server backends
 
 Multi-Curl - huge timing performance boost 
 
