@@ -1,6 +1,7 @@
 Yet Another %100 Working iCloud Bruteforce PoC..
 
-Tested on Ubuntu and Linux Mint
+Tested on Ubuntu, Linux Mint, and OSX Yosimite
+Mac Note:Brew needs to be installed from here http://brew.sh/ then from terminal "brew install wget"
 
 
 Disclaimer: Do whatever you want with this code as long as you give me credit (@Pr0x13) 
