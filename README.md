@@ -24,9 +24,6 @@ Dependencies:
 php5-cli
 php5-curl
 
-Usage:
-php iBrutr -u example@icloud.com
-
 The included wordlist is taken from 6 actual database leaks, duplicates removed and sanitized to more suit apple password requirements. Wordlist.lst I made by sorting only passwords with more than 8 characters, removed all numeric passes, removed consecutive characters (3 characters or more), removed all lowercase passwords, passwords without a capital letter and also a number. 
 Mangle.lst is slightly different, it consists of passwords 7 characters or more,  and numeric passwords removed. Depending on the charset you use for mangling you can really make use of it. Both are far from perfect and need more cleaning most likely. They are only provided as a starting point, you should really get a different wordlist. Make sure it satisfies Apple’s password requirements here https://support.apple.com/en-us/HT201303
 
