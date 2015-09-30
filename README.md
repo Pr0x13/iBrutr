@@ -1,5 +1,8 @@
 Yet Another %100 Working iCloud Bruteforce PoC..
 
+Tested on Ubuntu and Linux Mint
+
+
 Disclaimer: Do whatever you want with this code as long as you give me credit (@Pr0x13) 
 Check and make sure its legal in your country to use this tool before doing so.
 I'm not responsible for any damage done whatsoever to anyones iCloud account or iDevice.
@@ -29,18 +32,21 @@ Mangle.lst is slightly different, it consists of passwords 7 characters or more,
 
 
 Usage:
+if you don't already have them-
+sudo apt-get install php5-cli
+sudo apt-get install php5-curl
 
-:$ ./install.sh
+./install.sh
 
 (if it hangs on downloading, don’t exit just give it some time)
 
 Choose SYSTEM to compile on the left hand side
 
-:$ php iBrutr
+php iBrutr
 
 OR(while you can until a server is patched)
 
-:$ php MultiBrutr
+php MultiBrutr
 
 example:$ php iBrutr -u username@icloud.com
 
