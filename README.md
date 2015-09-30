@@ -67,11 +67,16 @@ the best performance. it contains a couple regex that (hopefully) satisfies Appl
 
 name your wordlists 0-*.dic
 
+
 Usage:
 -c (number of wordlists)
+
 -m (mangle ready)
+
 :$ php add -c 5 | php clean | ./unique wordlist.lst
+
 :$ php add -c 5 -m | php clean | ./unique mangle.lst
+
 
 
                         Until Next Time-    @Pr0x13
