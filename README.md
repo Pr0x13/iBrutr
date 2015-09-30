@@ -1,10 +1,15 @@
 Yet Another %100 Working iCloud Bruteforce PoC..
 
-Tested on Ubuntu, Linux Mint, and OSX Yosemite
+Tested on Ubuntu, Linux Mint, Windows 7 and OSX Yosemite
 
 Mac Note:Brew needs to be installed from here http://brew.sh/ then from terminal "brew install wget"
 or just compile it from source
 
+Windows Note: Cygwin needs to be installed, and these packages added "php-curl,php-jsonc,wget" (if you get a stat error and john wont compile it will still work but without mangling), 
+
+OR manually build directory from install.sh, download external module, install curl for windows and john pre-compiled for win32/64,should be invoked like this: 
+
+C:\PHP5\php.exe -f "C:\PHP Scripts\iBrutr" -- -arg1 -arg2 -arg3
 
 Disclaimer: Do whatever you want with this code as long as you give me credit (@Pr0x13) 
 Check and make sure its legal in your country to use this tool before doing so.
