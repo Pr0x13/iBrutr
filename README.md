@@ -31,8 +31,7 @@ The included wordlist is taken from 6 actual database leaks, duplicates removed 
 Mangle.lst is slightly different, it consists of passwords 7 characters or more,  and numeric passwords removed. Depending on the charset you use for mangling you can really make use of it. Both are far from perfect and need more cleaning most likely. They are only provided as a starting point, you should really get a different wordlist. Make sure it satisfies Apple’s password requirements here https://support.apple.com/en-us/HT201303
 
 Linux Note: If you don't already have them
-sudo apt-get install php5-cli
-sudo apt-get install php5-curl
+sudo apt-get install php5-cli php5-curl
 
 Mac Note:Brew needs to be installed from here http://brew.sh/ then from terminal "brew install wget"
 or just compile it from source
