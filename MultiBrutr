@@ -284,7 +284,7 @@ if($missiles[$x]->code == 0){
  	   exit(1);     
      }
 if ($brutetype == "APPLE ID"):     
-$buffer = [];
+$buffer = array();
 array_push($buffer, $missiles[$x]->data);
 foreach ($buffer as $responsedata) { 
    if ($missiles[$x]->code == "401"){ 
